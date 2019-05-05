@@ -1,0 +1,33 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  headline: MyString
+  brand: MyString
+  model: MyString
+  dexterity: MyString
+  shaft_name: MyString
+  shaft_flex: MyString
+  shaft_weight: MyString
+  club_color: MyString
+  loft: MyString
+  club_length: MyString
+  description: MyText
+  condition: MyString
+  price: 9.99
+  user: one
+
+two:
+  headline: MyString
+  brand: MyString
+  model: MyString
+  dexterity: MyString
+  shaft_name: MyString
+  shaft_flex: MyString
+  shaft_weight: MyString
+  club_color: MyString
+  loft: MyString
+  club_length: MyString
+  description: MyText
+  condition: MyString
+  price: 9.99
+  user: two
