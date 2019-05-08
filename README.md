@@ -1,24 +1,33 @@
 # GBay
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Welcome to GBay. This site sells exclusive Golf clubs used by famous golfers like Tiger Woods and many other professionals and personalities. As a golf enthusiast and collector, imagine being able to buy Tiger Wood's driver used to win the 1997 Masters where he transformed golf forever? Unfortunately, that club is priceless would probably never sell on any website. For golf enthusiasts who also collect memoriabillia, a source like this would be the ultimate fantasy site. I developed this site to serve as my final project at software engineering course.
 
-Things you may want to cover:
 
-* Ruby version
+## Technologies used in this project:
 
-* System dependencies
+* Ruby on Rails back-end
 
-* Configuration
+* PostGreSQL database/Api
 
-* Database creation
+* React front-end components
 
-* Database initialization
+* Javascript programming
 
-* How to run the test suite
+* CSS for styling
 
-* Services (job queues, cache servers, search engines, etc.)
+* Github for version control
 
-* Deployment instructions
+* Heroku for deployment
 
-* ...
+## ERD:
+
+* Users
+Users have a one to many relationship with Clubs.
+User can have many clubs.
+
+* Clubs
+Clubs have a many to one relationship with a User.
+Clubs belong to a user.
+
+## WIREFRAME:
+See images below

@@ -1,6 +1,7 @@
 class ClubsController < ApplicationController
   before_action :set_club, only: [:show, :update, :destroy]
-
+  before_action :authorize_request, except: %i[index show]
+  
   # GET /clubs
   def index
     @clubs = Club.all
