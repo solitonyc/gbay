@@ -5,13 +5,13 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-user1 = User.create!(email: 'tw@email.com', name: 'Tiger Woods', photo: 'https://imgur.com/gallery/gsVUsjA')
-user2 = User.create!(email: 'dj@email.com', name: 'Dustin Johnson', photo: 'https://imgur.com/gallery/pOAxl')
-user3 = User.create!(email: 'rf@email.com', name: 'Ricky Fowler', photo: 'https://www.mensjournal.com/wp-content/uploads/mf/justin-thomas-golf.jpg?w=800')
-user4 = User.create!(email: 'js@email.com', name: 'Jordan Spieth', photo: 'https://pga-tour-res.cloudinary.com/image/upload/c_fill,f_auto,g_center,h_393,q_auto,w_713/v1/pgatour/editorial/2016/05/30/jordanspieth-847-tompennington-sm.jpg')
-user5 = User.create!(email: 'jd@email.com', name: 'Jason Day', photo: 'https://1k9pcm3i7h9szb97528k27hw-wpengine.netdna-ssl.com/wp-content/uploads/2018/05/bahle-farms-golf-club-traverse-city-jason-day-5-5-18-1030x580.png')
-user6 = User.create!(email: 'rm@email.com', name: 'Rory Mcilroy', photo: 'https://amp.businessinsider.com/images/5ab010cdcc5029da788b45ed-750-375.jpg')
-user7 = User.create!(email: 'tf@email.com', name: 'Tony Finau', photo: 'https://www.sltrib.com/resizer/lAIq4PiRl4X7W-xUfR06vXrLea8=/0x600/smart/filters:quality(86)/arc-anglerfish-arc2-prod-sltrib.s3.amazonaws.com/public/KMPFCCAD2NERRG2IARPBZWHPHE.jpg')
+user1 = User.create!(email: 'tw@email.com', password_digest: '123456' name: 'Tiger Woods', photo: 'https://imgur.com/gallery/gsVUsjA')
+user2 = User.create!(email: 'dj@email.com', password_digest: '123456' name: 'Dustin Johnson', photo: 'https://imgur.com/gallery/pOAxl')
+user3 = User.create!(email: 'rf@email.com', password_digest: '123456' name: 'Ricky Fowler', photo: 'https://www.mensjournal.com/wp-content/uploads/mf/justin-thomas-golf.jpg?w=800')
+user4 = User.create!(email: 'js@email.com', password_digest: '123456' name: 'Jordan Spieth', photo: 'https://pga-tour-res.cloudinary.com/image/upload/c_fill,f_auto,g_center,h_393,q_auto,w_713/v1/pgatour/editorial/2016/05/30/jordanspieth-847-tompennington-sm.jpg')
+user5 = User.create!(email: 'jd@email.com', password_digest: '123456' name: 'Jason Day', photo: 'https://1k9pcm3i7h9szb97528k27hw-wpengine.netdna-ssl.com/wp-content/uploads/2018/05/bahle-farms-golf-club-traverse-city-jason-day-5-5-18-1030x580.png')
+user6 = User.create!(email: 'rm@email.com', password_digest: '123456' name: 'Rory Mcilroy', photo: 'https://amp.businessinsider.com/images/5ab010cdcc5029da788b45ed-750-375.jpg')
+user7 = User.create!(email: 'tf@email.com', password_digest: '123456' name: 'Tony Finau', photo: 'https://www.sltrib.com/resizer/lAIq4PiRl4X7W-xUfR06vXrLea8=/0x600/smart/filters:quality(86)/arc-anglerfish-arc2-prod-sltrib.s3.amazonaws.com/public/KMPFCCAD2NERRG2IARPBZWHPHE.jpg')
 
 puts "#{User.count} users created!"
 
