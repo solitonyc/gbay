@@ -1,4 +1,4 @@
-const baseUrl = "http://localhost:3000";
+const baseUrl = "http://gbay-site.herokuapp.com/";
 
 export const showClub = () => {
   return fetch(`${baseUrl}/clubs`)
