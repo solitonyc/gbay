@@ -1,4 +1,4 @@
-const baseUrl = "http://localhost:3001";
+const baseUrl = "http://localhost:3000";
 
 export const showClub = () => {
   return fetch(`${baseUrl}/clubs`)
@@ -60,7 +60,7 @@ export const destroyClub = (id) => {
     .catch(e => e)
 }
 
-// export const putClubFlavor = (food_id, id) => {
+// export const putClub = (club_id, id) => {
 //   const opts = {
 //     method: 'PUT',
 //     headers: {
@@ -69,20 +69,20 @@ export const destroyClub = (id) => {
 //     }
 //   }
 
-  return fetch(`${baseUrl}/clubs/${club_id}`, opts)
-    .then(resp => resp.json())
-    .catch(e => e)
-}
+//   return fetch(`${baseUrl}/clubs/${club_id}`, opts)
+//     .then(resp => resp.json())
+//     .catch(e => e)
+// }
 
 export const loginUser = (loginData) => {
   const opts = {
     method: 'POST',
-    body: JSON.stringify({ auth: loginData }),
+    body: JSON.stringify(loginData),
     headers: {
       'Content-Type': 'application/json'
     }
   }
-  return fetch(`${baseUrl}/user_token`, opts)
+  return fetch(`${baseUrl}/auth/login`, opts)
     .then(resp => resp.json())
     .catch(e => e)
 }

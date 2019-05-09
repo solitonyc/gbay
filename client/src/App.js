@@ -14,12 +14,11 @@ import {
   loginUser,
   registerUser,
   showClub,
-  // showFlavors,
   showClubItem,
   postClub,
   putClub,
   destroyClub,
-  // putFoodFlavor
+  
 } from './services/api-helper';
 
 class App extends Component {
@@ -28,17 +27,21 @@ class App extends Component {
 
     this.state = {
       currentUser: null, // we set the logged in user here. This way we know if the user is logged in
-      // flavors: [],
       club: [],
       clubItem: null,    // Value for a selected food item
       formData: {        // Form data for addin a food
-        name: ""
+        headline: ""
       },
       // selectedFlavor: '', // Form data for adding a flavor to a food
-      // authFormData: {
-      //   email: "",
-      //   password: ""
-      // }
+      authFormData: {
+        email: "",
+        password_digest: ""
+      },
+
+      loginFormData: {
+        email: "",
+        password: ""
+      }
     }
     this.handleLoginButton = this.handleLoginButton.bind(this)
     this.getClub = this.getClub.bind(this)
@@ -46,21 +49,28 @@ class App extends Component {
     this.addClub = this.addClub.bind(this)
     this.updateClub = this.updateClub.bind(this)
     this.deleteClub = this.deleteClub.bind(this)
-    // this.getFlavors = this.getFlavors.bind(this)
     this.handleLogin = this.handleLogin.bind(this)
     this.handleRegister = this.handleRegister.bind(this)
     this.handleLogout = this.handleLogout.bind(this)
     this.authHandleChange = this.authHandleChange.bind(this)
     this.handleChange = this.handleChange.bind(this)
     this.setClubForm = this.setClubForm.bind(this)
-    // this.flavorForm = this.flavorForm.bind(this)
-    // this.addFlavorToFood = this.addFlavorToFood.bind(this)
+    this.loginHandleChange = this.loginHandleChange.bind(this)
+    // this.decodeToken = this.decodeToken.bind(this)
+     
   }
 
   // onClick function to redirect to the login form 
   handleLoginButton() {
     this.props.history.push("/login")
   }
+
+// decodeToken(token) {
+//   const userData = decode(token)
+//   this.setState({
+//     currentUser: userData.id
+//   })
+// }
 
   // On page load, we grab all the foods and flavors
   // We also check local storage to see if the browser has a saved token
@@ -93,11 +103,11 @@ class App extends Component {
   // Function to create a new food in our API
   // We take the response and add it to our Food array in state
   async addClub() {
-    const newClub = await postClub(this.state.formData)
+    const newClub = await postClub(this.state.authFormData)
     this.setState(prevState => ({
       club: [...prevState.club, newClub],
-      formData: {
-        name: ""
+      authFormData: {
+        headline: ""
       }
     }))
   }
@@ -147,13 +157,26 @@ class App extends Component {
 
   // Function to login a user
   // we set the user data in state and the JWT in local storage
+  
+  loginHandleChange(e) {
+    const { name, value } = e.target;
+    this.setState(prevState => ({
+      loginFormData: {
+        ...prevState.loginFormData,
+        [name]: value
+      }
+    }));
+  }
+  
+  
   async handleLogin() {
-    const token = await loginUser(this.state.authFormData);
-    const userData = decode(token.jwt)
+    const token = await loginUser(this.state.authFormData)
+    const userData = decode(token.token)
     this.setState({
       currentUser: userData
     })
-    localStorage.setItem("jwt", token.jwt)
+    // console.log(userData.token)
+    localStorage.setItem("jwt", token.token)
   }
 
   // Function to register a user
@@ -184,6 +207,9 @@ class App extends Component {
     }));
   }
 
+  
+
+
   // handle change function for our create food form
   handleChange(e) {
     const { name, value } = e.target;
@@ -191,7 +217,7 @@ class App extends Component {
   }
 
   // Function to set the form data for the update food form
-  setFoodForm(club) {
+  setClubForm(club) {
     this.setState({
       formData: {
         name: club.name
@@ -232,12 +258,14 @@ class App extends Component {
         <Route exact path="/login" render={(props) => (
           <Login
             handleLogin={this.handleLogin}
-            handleChange={this.authHandleChange}
-            formData={this.state.authFormData} />)} />
+            handleChange={this.loginHandleChange}
+            formData={this.state.loginFormData} />)} />
         <Route exact path="/register" render={(props) => (
           <Register
             handleRegister={this.handleRegister}
             handleChange={this.authHandleChange}
+            currentUser={this.state.currentUser}
+            decodeToken={this.decodeToken}
             formData={this.state.authFormData} />)} />
         <Route exact path="/club" render={(props) => (
           <ShowClubs
