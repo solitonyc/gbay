@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import { withRouter } from 'react-router';
 // jwt-decode lets us decode json web token and access the data in them
 import decode from 'jwt-decode';
@@ -24,9 +24,8 @@ import {
 class App extends Component {
   constructor(props) {
     super(props);
-
     this.state = {
-      currentUser: null, // we set the logged in user here. This way we know if the user is logged in
+      currentClub: null, // we set the logged in user here. This way we know if the user is logged in
       club: [],
       clubItem: null,    // Value for a selected food item
       formData: {        // Form data for addin a food
@@ -75,8 +74,8 @@ class App extends Component {
   // On page load, we grab all the foods and flavors
   // We also check local storage to see if the browser has a saved token
   // If so, we decode the token to get the user data and save it in state.
-  componentDidMount() {
-    this.getClub()
+  async componentDidMount() {
+    await this.getClub()
     // this.getFlavors();
     const checkUser = localStorage.getItem("jwt");
     if (checkUser) {
