@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import './ShowClubs.css';
 
 // I wanted to show a different style of doing forms in this component
 // I used terinaries to show in-line edit forms in place the mapped food item.
@@ -15,25 +16,24 @@ class ShowClubs extends Component {
   }
   render() {
     return (
-      <div>
+      <div className="clubs_container">
         <h1>SEE ALL CLUBS PAGE</h1>
         {this.props.clubs.map(club => (
-          <div key={club.id}>
-            <h1>{club.headline}</h1>
-            <p>{club.condition}</p>
-            <p>{club.image}</p>
-            
-            <p>{club.description}</p>
-            <p>{club.brand}</p>
-            <p>{club.model}</p>
-            <p>{club.loft}</p>
-            <p>{club.dexterity}</p>
-            <p>{club.shaft_name}</p>
-            <p>{club.shaft_flex}</p>
-            <p>{club.shaft_weight}</p>
-            <p>{club.club_color}</p>
-            <p>{club.club_length}</p>
-            <p>{club.price}</p>
+          <div className="club_item_container" key={club.id}>
+            <h1>{club.headline}</h1>            
+            <img className='club_image' alt={club.model} src={club.image} />
+            <p>Description: {club.description}</p>
+            <p>Brand: {club.brand}</p>
+            <p>Model: {club.model}</p>
+            <p>Loft: {club.loft}</p>
+            <p>Condition: {club.condition}</p>
+            <p>Dexterity: {club.dexterity}</p>
+            <p>Shaft: {club.shaft_name}</p>
+            <p>Shaft Flex: {club.shaft_flex}</p>
+            <p>Shaft Weight: {club.shaft_weight}</p>
+            <p>Club Color: {club.club_color}</p>
+            <p>Club Length: {club.club_length}</p>
+            <h2>Price: {club.price}</h2>
 
 
             {/* Here is where we user a terinary for the edit form.
@@ -49,7 +49,7 @@ class ShowClubs extends Component {
                   });
                 }}>
                   <input
-                    name="name"
+                    headline="text"
                     type="text"
                     value={this.props.formData.name}
                     onChange={this.props.handleChange} />

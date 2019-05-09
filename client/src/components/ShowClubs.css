@@ -1,0 +1,19 @@
+.clubs_container {
+    margin: 24px;
+    padding: 12px;
+}
+
+.club_item_container {
+    margin: 24px;
+    border: rgb(59, 59, 92) 6px solid;
+    border-radius: 18px;
+    padding: 18px;
+}
+.club_image{
+    width: 80%;
+    border: black 1px solid;
+    padding: 18px;
+    border-radius: 18px;
+    margin: 0 auto;
+    display: block;
+}
