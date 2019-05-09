@@ -75,8 +75,8 @@ class App extends Component {
   // On page load, we grab all the foods and flavors
   // We also check local storage to see if the browser has a saved token
   // If so, we decode the token to get the user data and save it in state.
-  componentDidMount() {
-    this.getClub()
+  async componentDidMount() {
+    await this.getClub()
     // this.getFlavors();
     const checkUser = localStorage.getItem("jwt");
     if (checkUser) {

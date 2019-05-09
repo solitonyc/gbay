@@ -19,6 +19,23 @@ class ShowClubs extends Component {
         <h1>SEE ALL CLUBS PAGE</h1>
         {this.props.clubs.map(club => (
           <div key={club.id}>
+            <h1>{club.headline}</h1>
+            <p>{club.condition}</p>
+            <p>{club.image}</p>
+            
+            <p>{club.description}</p>
+            <p>{club.brand}</p>
+            <p>{club.model}</p>
+            <p>{club.loft}</p>
+            <p>{club.dexterity}</p>
+            <p>{club.shaft_name}</p>
+            <p>{club.shaft_flex}</p>
+            <p>{club.shaft_weight}</p>
+            <p>{club.club_color}</p>
+            <p>{club.club_length}</p>
+            <p>{club.price}</p>
+
+
             {/* Here is where we user a terinary for the edit form.
               If the isEdit in state is set to the current food id, then we show an edit form for just that item */}
             {this.state.isEdit === club.id
