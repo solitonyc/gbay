@@ -1,4 +1,19 @@
-const baseUrl = "http://gbay-site.herokuapp.com/";
+// const baseUrl = "http://gbay-site.herokuapp.com/";
+const baseUrl = "http://localhost:3000";
+
+
+// ----------------- Club Functions -------------
+export const showUserClubs = (id) => {
+  return fetch(`${baseUrl}/users/${id}/clubs`)
+    .then(resp => resp.json())
+    .catch(e => e)
+}
+
+export const showUserClubItem = (user_id, id) => {
+  return fetch(`${baseUrl}/users/${user_id}/clubs/${id}`)
+  .then(resp => resp.json())
+  .catch(e => e)
+} 
 
 export const showClub = () => {
   return fetch(`${baseUrl}/clubs`)
@@ -6,11 +21,6 @@ export const showClub = () => {
     .catch(e => e)
 }
 
-// export const showFlavors = () => {
-//   return fetch(`${baseUrl}/flavors`)
-//     .then(resp => resp.json())
-//     .catch(e => e)
-// }
 
 export const showClubItem = (id) => {
   return fetch(`${baseUrl}/clubs/${id}`)
@@ -18,17 +28,17 @@ export const showClubItem = (id) => {
     .catch(e => e)
 }
 
-export const postClub = (item) => {
+export const postClub = (user_id, id) => {
   const opts = {
     method: 'POST',
-    body: JSON.stringify(item),
+    body: JSON.stringify(id),
     headers: {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${localStorage.getItem('jwt')}`
     }
   };
 
-  return fetch(`${baseUrl}/clubs/`, opts)
+  return fetch(`${baseUrl}/users/${user_id}/clubs/${id}`, opts)
     .then(resp => resp.json())
     .catch(e => e)
 }
@@ -60,20 +70,8 @@ export const destroyClub = (id) => {
     .catch(e => e)
 }
 
-// export const putClub = (club_id, id) => {
-//   const opts = {
-//     method: 'PUT',
-//     headers: {
-//       'Content-Type': 'application/json',
-//       'Authorization': `Bearer ${localStorage.getItem('jwt')}`
-//     }
-//   }
 
-//   return fetch(`${baseUrl}/clubs/${club_id}`, opts)
-//     .then(resp => resp.json())
-//     .catch(e => e)
-// }
-
+// ------------- User Functions --------------------
 export const loginUser = (loginData) => {
   const opts = {
     method: 'POST',
@@ -82,6 +80,7 @@ export const loginUser = (loginData) => {
       'Content-Type': 'application/json'
     }
   }
+
   return fetch(`${baseUrl}/auth/login`, opts)
     .then(resp => resp.json())
     .catch(e => e)
@@ -100,6 +99,38 @@ export const registerUser = (registerData) => {
     .then(resp => resp.json())
     .catch(e => e)
 }
+
+// -------- Update User  -----------
+export const putUser = (id, item) => {
+  const opts = {
+    method: 'PUT',
+    body: JSON.stringify({ user: item}),
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+    }
+  }
+  console.log("putopts", opts)
+  return fetch(`${baseUrl}/users/${id}`, opts)
+    .then(resp => resp.json())
+    .then(resp => console.log("resp", resp))
+    .catch(e => e)
+}
+
+// -------- Delete user ------------
+export const destroyUser = (id) => {
+  	const opts = {
+  		method: 'DELETE',
+  		headers: {
+  			'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+  		}
+  	}
+  	return fetch(`${baseUrl}/users/${id}`, opts)
+  		.catch(e => e)
+  }
+
+
+
 
 
 

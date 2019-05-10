@@ -3,44 +3,48 @@ import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import { withRouter } from 'react-router';
 // jwt-decode lets us decode json web token and access the data in them
 import decode from 'jwt-decode';
-import Login from './components/Login'
-import Register from './components/Register'
-import ShowClubs from './components/ShowClubs'
-import ClubItem from './components/ClubItem'
-// import ShowFlavors from './components/ShowFlavors'
+import ShowClubs from './components/ShowClubs';
+import ClubItem from './components/ClubItem';
+import LinkButton from './components/LinkButton';
+import AuthForm from './components/AuthForm';
+import UpdateForm from './components/UpdateForm'
+
 
 // After building the backend, we can make all of our API calls. Then import them here
 import {
   loginUser,
   registerUser,
+  showUserClubs,
+  showUserClubItem,
   showClub,
   showClubItem,
   postClub,
   putClub,
   destroyClub,
+  destroyUser,
+  putUser
   
-} from './services/api-helper';
+} from './services/api-helper'
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
       currentClub: null, // we set the logged in user here. This way we know if the user is logged in
-      club: [],
-      clubItem: null,    // Value for a selected food item
-      formData: {        // Form data for addin a food
+      clubs: [],
+      clubItem: null,    
+      formData: {        
         headline: ""
       },
-      // selectedFlavor: '', // Form data for adding a flavor to a food
+      currentUser: null,
       authFormData: {
         email: "",
-        password_digest: ""
-      },
-
-      loginFormData: {
-        email: "",
         password: ""
-      }
+      },
+      // loginFormData: {
+      //   email: "",
+      //   password: ""
+      // }
     }
     this.handleLoginButton = this.handleLoginButton.bind(this)
     this.getClub = this.getClub.bind(this)
@@ -53,8 +57,10 @@ class App extends Component {
     this.handleLogout = this.handleLogout.bind(this)
     this.authHandleChange = this.authHandleChange.bind(this)
     this.handleChange = this.handleChange.bind(this)
+    this.handleUpdate = this.handleUpdate.bind(this)
     this.setClubForm = this.setClubForm.bind(this)
     this.loginHandleChange = this.loginHandleChange.bind(this)
+   
     // this.decodeToken = this.decodeToken.bind(this)
      
   }
@@ -64,17 +70,19 @@ class App extends Component {
     this.props.history.push("/login")
   }
 
-// decodeToken(token) {
-//   const userData = decode(token)
-//   this.setState({
-//     currentUser: userData.id
-//   })
-// }
+  decodeToken(token) {
+    const userData = decode(token)
+    this.setState({
+      currentUser: userData.id
+    })
+  }
 
   // On page load, we grab all the foods and flavors
   // We also check local storage to see if the browser has a saved token
   // If so, we decode the token to get the user data and save it in state.
   async componentDidMount() {
+    const clubs = await this.getUserClubs(1)
+    
     await this.getClub()
     // this.getFlavors();
     const checkUser = localStorage.getItem("jwt");
@@ -86,35 +94,47 @@ class App extends Component {
     }
   }
 
-  // Function to get all food from our API
+  async getUserClubs(user_id) {
+    const clubs = await showUserClubs(user_id);
+    this.setState({ clubs })
+  }
+
+  async getUserClubItem(club_id) {
+    const club = await showUserClubItem(this.state.currentUser.id, club_id);
+    this.setState({ club })
+  }
+
+  // Function to get all clubs across all user
   async getClub() {
     const club = await showClub();
     this.setState({ club })
   }
 
-  // Function to get a single food item from our API
+  // Function to get a single club item from our API
   async getClubItem(id) {
     const clubItem = await showClubItem(id);
     this.setState({ clubItem })
   }
 
-
-  // Function to create a new food in our API
-  // We take the response and add it to our Food array in state
+  async deleteUser(currentUser) {
+    await destroyUser(this.state.currentUser.id)
+    this.handleLogout()
+  }
+  
   async addClub() {
     const newClub = await postClub(this.state.authFormData)
     this.setState(prevState => ({
       club: [...prevState.club, newClub],
       authFormData: {
-        headline: ""
+        headline: "",
+        brand: "",
+        make: "",
+        model: ""
       }
     }))
   }
 
-  // Function to update an existing food in our API
-  // We find the index of the updated food in state
-  // We build a new array, replacing the old food item with the new one
-  // Then we setState with the new food array
+
   async updateClub(clubItem) {
     const updatedClubItem = await putClub(this.state.formData, clubItem.id);
     const index = this.state.club.indexOf(clubItem);
@@ -125,8 +145,7 @@ class App extends Component {
     })
   }
 
-  // Function to delete a food item
-  // We then build a new food array with the delete item spliced out
+  // Function to delete a club
   async deleteClub(clubItem) {
     await destroyClub(clubItem.id);
     const index = this.state.club.indexOf(clubItem);
@@ -137,23 +156,7 @@ class App extends Component {
     })
   }
 
-  // // Function to get all flavors
-  // async getFlavors() {
-  //   const flavors = await showFlavors();
-  //   this.setState({ flavors })
-  // }
-
-  // Function to add a flavor to a food
-  // We first find the flavor using by comparing the name from the flavor form data and the name in the flavors array
-  // Then we make our API call using that flavors id and the id of the food argument passed to this function
-  // async addFlavorToFood(foodItem) {
-  //   const newFlavor = this.state.flavors.find(flavor => flavor.name === this.state.selectedFlavor);
-  //   const newFoodItem = await putFoodFlavor(foodItem.id, newFlavor.id);
-  //   this.setState({
-  //     foodItem: newFoodItem
-  //   })
-  // }
-
+  
   // Function to login a user
   // we set the user data in state and the JWT in local storage
   
@@ -170,29 +173,42 @@ class App extends Component {
   
   async handleLogin() {
     const token = await loginUser(this.state.authFormData)
+    // Do Not Touch!!!
     const userData = decode(token.token)
     this.setState({
       currentUser: userData
     })
     // console.log(userData.token)
+    // Do Not Touch!!!
     localStorage.setItem("jwt", token.token)
   }
 
   // Function to register a user
   // After register, we just call the login function with the same data
-  async handleRegister(e) {
-    e.preventDefault();
+  async handleRegister() {
     await registerUser(this.state.authFormData);
-    this.handleLogin();
+    this.handleLogin()
   }
 
   // Function to logout user
   // We delete the token from local storage and set the current user in state back to null
   handleLogout() {
-    localStorage.removeItem("jwt");
+    localStorage.clear();
     this.setState({
       currentUser: null
     })
+  }
+
+  async handleUpdate() {
+    console.log(this.state.currentUser.id)
+    console.log(this.state.authFormData)
+    const userData = await putUser(this.state.currentUser.id, this.state.authFormData)
+
+    console.log("userdata", userData)
+    this.setState({
+      currentUser: userData
+    })
+  
   }
 
   // Handle change function for the auth forms
@@ -204,91 +220,115 @@ class App extends Component {
         [name]: value
       }
     }));
+    console.log(this.state.authFormData)
   }
 
   
-
-
-  // handle change function for our create food form
-  handleChange(e) {
-    const { name, value } = e.target;
-    this.setState({ formData: { [name]: value } });
+  async handleChange(currentUser) {
+    const userData = await putUser(this.state.currentUser.id, this.state.authFormData)
+    this.setState({
+      currentUser: userData
+    })
   }
 
-  // Function to set the form data for the update food form
+  // Data in the form
   setClubForm(club) {
     this.setState({
       formData: {
-        name: club.name
+        name: club.name,
+        headline: club.headline,
+        brand: club.brand,
+        make: club.make,
+        price: club.price
       }
     })
   }
 
-  // //handle change for the flavor drop down form
-  // flavorForm(e) {
-  //   this.setState({
-  //     selectedFlavor: e.target.value
-  //   })
-  // }
+  
 
   render() {
     return (
       <div>
         <header>
+          
           <Link to="/"><h1>GBay</h1></Link>
-          {/* Here we use a terinary to check if there is a logged in user set in state.
-              If there is no logged in user, we show a login button instead of the site nav */}
+         
           {this.state.currentUser
             ?
-            <div>
-              {/* This is a greeting to the user if there user info has been set in state.
-              We use the guard operator to check '&&' */}
-              <h3>Hi {this.state.currentUser && this.state.currentUser.email}<button onClick={this.handleLogout}>logout</button></h3>
-              <Link to="/club">View All Club</Link>
-              &nbsp;
-              {/* <Link to="/flavors">View All Flavors</Link> */}
-              <hr />
-            </div>
+            <>
+              <h3>
+                Welcome to GBay 
+                  {this.state.currentUser && this.state.currentUser.email}
+                    <button onClick={this.handleLogout}>
+                      logout
+                    </button>
+              </h3>
+              <Link to={`users/${this.state.currentUser.id}/clubs`}>View All Clubs</Link>
+              <hr/>
+            </>
             :
-            <button onClick={this.handleLoginButton}>Login/register</button>
+            <button className="login_button" onClick={() => this.props.history.push('/login')}>
+              Login/Register
+            </button>
+            
           }
+            <LinkButton to="/update">Update</LinkButton>
+            <button className="delete_button" onClick={this.deleteUser}>Delete</button>
+            <button className="logout_button" onClick={this.handleLogout}>Logout</button>
+            
+          
         </header>
+          
         {/* setting up our routes */}
-        <Route exact path="/login" render={(props) => (
-          <Login
-            handleLogin={this.handleLogin}
-            handleChange={this.loginHandleChange}
-            formData={this.state.loginFormData} />)} />
-        <Route exact path="/register" render={(props) => (
-          <Register
-            handleRegister={this.handleRegister}
+        <Route exact path="/login" render={() => (
+          <AuthForm
+            authFormTitle="Login"
+            handleSubmit={this.handleLogin}
             handleChange={this.authHandleChange}
-            currentUser={this.state.currentUser}
-            decodeToken={this.decodeToken}
-            formData={this.state.authFormData} />)} />
-        <Route exact path="/club" render={(props) => (
-          <ShowClubs
-            clubs={this.state.club}
-            formData={this.state.formData}
-            getClubItem={this.getClubItem}
-            deleteClub={this.deleteClub}
-            handleSubmit={this.addClub}
-            handleChange={this.handleChange}
-            setClubForm={this.setClubForm}
-            updateClub={this.updateClub}
-          />)} />
-        {/* <Route exact path="/flavors" render={(props) => (
-          <ShowFlavors flavors={this.state.flavors} />)} /> */}
-        <Route exact path="/club/:id" render={(props) => (
+            authFormData={this.state.authFormData} />)} 
+            />
+        <Route exact path="/register" render={() => (
+          <AuthForm
+            authFormTitle="Register"
+            handleSubmit={this.handleRegister}
+            handleChange={this.authHandleChange}
+            authFormData={this.state.authFormData} />)} 
+            />
+        {this.state.currentUser 
+        ?
+          <>
+          <Route exact path={`/users/${this.state.currentUser.id}/clubs`} render={(props) => (
+            <ShowClubs
+              {...props}
+              getUserClubs={this.getUserClubs}
+              clubs={this.state.club}
+              formData={this.state.formData}
+              getClubItem={this.getClubItem}
+              deleteClub={this.deleteClub}
+              handleSubmit={this.addClub}
+              handleChange={this.handleChange}
+              setClubForm={this.setClubForm}
+              updateClub={this.updateClub} />)} 
+            />
+            </>
+            :
+            ""
+          }
+        <Route exact path="/update" render={() => (
+          <UpdateForm
+          updateFormTitle="Update"
+          handleSubmit={this.handleUpdate}
+          handleChange={this.authHandleChange}
+          authFormData={this.state.authFormData} />)} 
+          />
+
+        <Route exact path="/club/:id" render={(props) => 
           <ClubItem
-            clubItem={this.state.clubItem}
-            // flavors={this.state.flavors}
-            // selectedFlavor={this.state.selectedFlavor}
-            // handleChange={this.flavorForm}
-            // addFlavorToFood={this.addFlavorToFood} 
-            />)} />
+            clubs={this.state.clubs}              
+            />} 
+          />
       </div>
-    );
+    )
   }
 }
 

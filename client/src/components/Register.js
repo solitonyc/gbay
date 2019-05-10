@@ -5,7 +5,7 @@ const Register = (props) => {
 
   return (
     <div>
-      <h2>Register</h2>
+      <h2>Register Here</h2>
       <hr />
       <form onSubmit={props.handleRegister} >
         <p>Register with your Email:</p>

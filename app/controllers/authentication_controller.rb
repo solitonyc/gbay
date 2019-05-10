@@ -1,4 +1,5 @@
 class AuthenticationController < ApplicationController
+  
     # POST /auth/login
   def login
     @user = User.find_by_email(params[:email])
