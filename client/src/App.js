@@ -34,7 +34,7 @@ class App extends Component {
       clubs: [],
       clubItem: null,    
       formData: {        
-        headline: ""
+        email: ""
       },
       currentUser: null,
       authFormData: {
@@ -61,7 +61,7 @@ class App extends Component {
     this.setClubForm = this.setClubForm.bind(this)
     this.loginHandleChange = this.loginHandleChange.bind(this)
    
-    // this.decodeToken = this.decodeToken.bind(this)
+    this.decodeToken = this.decodeToken.bind(this)
      
   }
 
@@ -181,6 +181,7 @@ class App extends Component {
     // console.log(userData.token)
     // Do Not Touch!!!
     localStorage.setItem("jwt", token.token)
+    console.log('handle login user data', this.state.currentUser)
   }
 
   // Function to register a user
@@ -200,9 +201,9 @@ class App extends Component {
   }
 
   async handleUpdate() {
-    console.log(this.state.currentUser.id)
+    console.log(this.state.currentUser.user_id)
     console.log(this.state.authFormData)
-    const userData = await putUser(this.state.currentUser.id, this.state.authFormData)
+    const userData = await putUser(this.state.currentUser.user_id, this.state.authFormData)
 
     console.log("userdata", userData)
     this.setState({
@@ -253,15 +254,15 @@ class App extends Component {
           
           <Link to="/"><h1>GBay</h1></Link>
          
+
+
           {this.state.currentUser
             ?
             <>
               <h3>
                 Welcome to GBay 
                   {this.state.currentUser && this.state.currentUser.email}
-                    <button onClick={this.handleLogout}>
-                      logout
-                    </button>
+                    <button onClick={this.handleLogout}>logout</button>
               </h3>
               <Link to={`users/${this.state.currentUser.id}/clubs`}>View All Clubs</Link>
               <hr/>
@@ -287,6 +288,7 @@ class App extends Component {
             handleChange={this.authHandleChange}
             authFormData={this.state.authFormData} />)} 
             />
+
         <Route exact path="/register" render={() => (
           <AuthForm
             authFormTitle="Register"
@@ -294,6 +296,14 @@ class App extends Component {
             handleChange={this.authHandleChange}
             authFormData={this.state.authFormData} />)} 
             />
+
+<Route exact path="/update" render={() => (
+          <UpdateForm
+          updateFormTitle="Update"
+          handleSubmit={this.handleUpdate}
+          handleChange={this.authHandleChange}
+          authFormData={this.state.authFormData} />)} 
+          />
         {this.state.currentUser 
         ?
           <>
@@ -314,13 +324,13 @@ class App extends Component {
             :
             ""
           }
-        <Route exact path="/update" render={() => (
+        {/* <Route exact path="/update" render={() => (
           <UpdateForm
           updateFormTitle="Update"
           handleSubmit={this.handleUpdate}
           handleChange={this.authHandleChange}
           authFormData={this.state.authFormData} />)} 
-          />
+          /> */}
 
         <Route exact path="/club/:id" render={(props) => 
           <ClubItem

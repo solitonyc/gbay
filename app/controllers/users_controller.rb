@@ -27,9 +27,12 @@ class UsersController < ApplicationController
 
   # PATCH/PUT /users/1
   def update
-    if @user.update(user_params)
+    if params[:user_id]
+      @user=User.find(params[:user_id])
+      @user.update(user_params)
+      @user.save
       render json: @user
-    else
+    elsif
       render json: @user.errors, status: :unprocessable_entity
     end
   end

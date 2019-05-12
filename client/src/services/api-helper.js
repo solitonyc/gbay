@@ -3,31 +3,35 @@ const baseUrl = "http://localhost:3000";
 
 
 // ----------------- Club Functions -------------
+// ----------------- show user clubs ---------------
 export const showUserClubs = (id) => {
   return fetch(`${baseUrl}/users/${id}/clubs`)
     .then(resp => resp.json())
     .catch(e => e)
 }
 
+// -------------- show user one club --------------
 export const showUserClubItem = (user_id, id) => {
   return fetch(`${baseUrl}/users/${user_id}/clubs/${id}`)
   .then(resp => resp.json())
   .catch(e => e)
 } 
 
+//---------------- show all clubs --------------
 export const showClub = () => {
   return fetch(`${baseUrl}/clubs`)
     .then(resp => resp.json())
     .catch(e => e)
 }
 
-
+// ------------ show one club -------------
 export const showClubItem = (id) => {
   return fetch(`${baseUrl}/clubs/${id}`)
     .then(resp => resp.json())
     .catch(e => e)
 }
 
+// ------------ give use new club --------------
 export const postClub = (user_id, id) => {
   const opts = {
     method: 'POST',
@@ -42,7 +46,7 @@ export const postClub = (user_id, id) => {
     .then(resp => resp.json())
     .catch(e => e)
 }
-
+//------------- update existing club -------------------
 export const putClub = (item, id) => {
   const opts = {
     method: 'PUT',
@@ -57,7 +61,7 @@ export const putClub = (item, id) => {
     .then(resp => resp.json())
     .catch(e => e)
 }
-
+// ----------------- delete club -----------------------
 export const destroyClub = (id) => {
   const opts = {
     method: 'DELETE',
@@ -86,6 +90,7 @@ export const loginUser = (loginData) => {
     .catch(e => e)
 }
 
+// ----------------- create user --------------
 export const registerUser = (registerData) => {
   const opts = {
     method: 'POST',
