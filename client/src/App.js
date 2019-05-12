@@ -262,7 +262,7 @@ class App extends Component {
           {this.state.currentUser
             ?
             <>
-              <h3 className="welcome_title">Welcome to GBay: {this.state.currentUser && this.state.currentUser.email}
+              <h3 className="welcome_title">Welcome to GBay: <span className="user_label"> {this.state.currentUser && this.state.currentUser.email}</span>
                     <button onClick={this.handleLogout} className='logout_button'>logout</button>
               </h3>
               <hr/>

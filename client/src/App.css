@@ -50,7 +50,9 @@ a:active {
   color: blue;
 }
 
-
+.user_label {
+  margin: 12px;
+}
 .view_all_clubs {
   color: red;
   text-align: center;
@@ -65,6 +67,10 @@ a:active {
 }
 
 .logout_button {
+  margin: 0px;
+}
+
+.delete_button {
   margin: 12px;
 }
 
