@@ -8,6 +8,8 @@ import ClubItem from './components/ClubItem';
 import LinkButton from './components/LinkButton';
 import AuthForm from './components/AuthForm';
 import UpdateForm from './components/UpdateForm'
+import './App.css';
+
 
 
 // After building the backend, we can make all of our API calls. Then import them here
@@ -250,22 +252,23 @@ class App extends Component {
   render() {
     return (
       <div>
-        <header>
+        <header className="main_header_section">
           
-          <Link to="/"><h1>GBay</h1></Link>
+          <Link to="/"><div className="main_logo">GBay</div>
+          <h2 className="main_subtitle">Exclusive Dealer of Golf's Most Historic Golf Clubs</h2></Link>
          
 
 
           {this.state.currentUser
             ?
             <>
-              <h3>
-                Welcome to GBay 
-                  {this.state.currentUser && this.state.currentUser.email}
-                    <button onClick={this.handleLogout}>logout</button>
+              <h3 className="welcome_title">Welcome to GBay: {this.state.currentUser && this.state.currentUser.email}
+                    <button onClick={this.handleLogout} className='logout_button'>logout</button>
               </h3>
-              <Link to={`users/${this.state.currentUser.id}/clubs`}>View All Clubs</Link>
               <hr/>
+              <div className='view_all_clubs'>
+              <Link to={`users/${this.state.currentUser.id}/clubs`}>View All Clubs</Link>
+              </div>
             </>
             :
             <button className="login_button" onClick={() => this.props.history.push('/login')}>
@@ -274,8 +277,9 @@ class App extends Component {
             
           }
             <LinkButton to="/update">Update</LinkButton>
-            <button className="delete_button" onClick={this.deleteUser}>Delete</button>
+            <button className="delete_button" onClick={this.destroyUser}>Delete</button>
             <button className="logout_button" onClick={this.handleLogout}>Logout</button>
+           
             
           
         </header>

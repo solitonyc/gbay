@@ -18,20 +18,20 @@ class ShowClubs extends Component {
       <>
         {clubs.map(club => (
           <div className="club_item_container" key={club.id}>
-            <h1>{club.headline}</h1>            
+            <h1 className='club_headline'>{club.headline}</h1>  
+            <p className='club_details_descrip'><span className='club_descrip_bold'>Description:</span> {club.description}</p>          
             <img className='club_image' alt={club.model} src={club.image} />
-            <p>Description: {club.description}</p>
-            <p>Brand: {club.brand}</p>
-            <p>Model: {club.model}</p>
-            <p>Loft: {club.loft}</p>
-            <p>Condition: {club.condition}</p>
-            <p>Dexterity: {club.dexterity}</p>
-            <p>Shaft: {club.shaft_name}</p>
-            <p>Shaft Flex: {club.shaft_flex}</p>
-            <p>Shaft Weight: {club.shaft_weight}</p>
-            <p>Club Color: {club.club_color}</p>
-            <p>Club Length: {club.club_length}</p>
-            <h2>Price: {club.price}</h2>
+            <div className='club_details_text'><span className='club_descrip_bold'>Brand:</span> {club.brand}</div>
+            <div className='club_details_text'><span className='club_descrip_bold'>Model:</span> {club.model}</div>
+            <div className='club_details_text'><span className='club_descrip_bold'>Loft:</span> {club.loft}</div>
+            <div className='club_details_text'><span className='club_descrip_bold'>Condition:</span> {club.condition}</div>
+            <div className='club_details_text'><span className='club_descrip_bold'>Dexterity:</span> {club.dexterity}</div>
+            <div className='club_details_text'><span className='club_descrip_bold'>Shaft:</span> {club.shaft_name}</div>
+            <div className='club_details_text'><span className='club_descrip_bold'>Shaft Flex:</span> {club.shaft_flex}</div>
+            <div className='club_details_text'><span className='club_descrip_bold'>Shaft Weight:</span> {club.shaft_weight}</div>
+            <div className='club_details_text'><span className='club_descrip_bold'>Club Color:</span> {club.club_color}</div>
+            <div className='club_details_text'><span className='club_descrip_bold'>Club Length:</span> {club.club_length}</div>
+            <div className='club_details_price'><span className='club_descrip_bold'>Price:</span> {club.price}</div>
           </div>
         ))}
       </>

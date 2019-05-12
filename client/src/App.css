@@ -1,26 +1,71 @@
-.App {
+@import url('https://fonts.googleapis.com/css?family=Arima+Madurai|Diplomata|Great+Vibes|Tangerine');
+
+body {
+  background-color: rgb(179, 207, 179);
+}
+
+header.main_header_section {
+  padding: 24px;
+  background-color: rgb(7, 65, 7);
+}
+
+.main_logo {
+  font-family: 'Diplomata', cursive;
+  font-weight: 300;
+  font-size: 45px;
+  color:white;
   text-align: center;
+  text-decoration: none;
+  
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
-  pointer-events: none;
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+.main_subtitle {
+  font-family: 'Arima Madurai', cursive;
   color: white;
+  font-weight: 200px;
+  font-size: 24px;
+  margin: 0 auto;
+  text-align: center;
+
 }
 
-.App-link {
-  color: #61dafb;
+/* unvisited link */
+a:link {
+  text-decoration: underline;
+  color: red;
+}
+
+/* visited link */
+a:visited {
+  color: green;
+}
+
+/* mouse over link */
+a:hover {
+  color: hotpink;
+}
+
+/* selected link */
+a:active {
+  color: blue;
+}
+
+
+.view_all_clubs {
+  color: red;
+  text-align: center;
+  text-decoration: none;
+
+}
+
+.welcome_title {
+  color: red;
+  text-align: center;
+  padding: 8px;
+}
+
+.logout_button {
+  margin: 12px;
 }
 
 @keyframes App-logo-spin {

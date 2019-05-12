@@ -8,12 +8,58 @@
     border: rgb(59, 59, 92) 6px solid;
     border-radius: 18px;
     padding: 24px;
+    background-color: antiquewhite;
 }
+
+.club_headline {
+    color: rgb(9, 65, 21);
+    text-align: center;
+    margin: 0 auto;
+    font-size: 24px;
+    font-weight: 900;
+    padding: 24px;
+}
+
+.club_descrip_bold {
+    font-weight: 800;
+    text-transform: uppercase;
+    
+}
+
 .club_image{
-    width: 70%;
-    border: black 1px solid;
-    padding: 18px;
+    width: 80%;
+    border: white 24px solid;
+    margin: 18px;
     border-radius: 18px;
     margin: 0 auto;
     display: block;
+}
+
+.club_details_text {
+    color: rgb(9, 65, 21);
+    text-align: left;
+    margin: 0 auto;
+    font-size: 18px;
+    font-weight: 600;
+    padding: 24px;
+    width: 80%;
+    line-height: 0;
+}
+
+.club_details_descrip {
+    color: rgb(9, 65, 21);
+    text-align: left;
+    margin: 0 auto;
+    font-size: 18px;
+    font-weight: 500;
+    padding: 24px;
+    width: 80%;
+    
+}
+
+.club_details_price {
+    font-weight: 800;
+    font-size: 34px;
+    text-align: center;
+    margin: 24px;
 }
