@@ -46,8 +46,6 @@
     line-height: 0;
 }
 
-
-
 .club_details_descrip {
     color: rgb(9, 65, 21);
     text-align: left;
@@ -58,7 +56,6 @@
     width: 80%;
     
 }
-
 
 .price_box {
     border: white 3px solid;
@@ -72,6 +69,7 @@
     font-size: 34px;
     text-align: center;
     margin: 24px;
+    color: rgb(9, 65, 21);
 }
 .inquire_button {
     background-color: rgb(160, 218, 200);

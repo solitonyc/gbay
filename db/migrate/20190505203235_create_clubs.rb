@@ -13,7 +13,7 @@ class CreateClubs < ActiveRecord::Migration[5.2]
       t.string :club_length
       t.text :description
       t.string :condition
-      t.decimal :price, :precision => 7, :scale => 2
+      t.string :price
       t.references :user, foreign_key: true
 
       t.timestamps
