@@ -1,5 +1,5 @@
-// const baseUrl = "http://gbay-site.herokuapp.com/";
-const baseUrl = "http://localhost:3000";
+const baseUrl = "http://gbay-site.herokuapp.com/";
+// const baseUrl = "http://localhost:3000";
 
 
 // ----------------- Club Functions -------------
