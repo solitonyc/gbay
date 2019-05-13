@@ -31,7 +31,9 @@ class ShowClubs extends Component {
             <div className='club_details_text'><span className='club_descrip_bold'>Shaft Weight:</span> {club.shaft_weight}</div>
             <div className='club_details_text'><span className='club_descrip_bold'>Club Color:</span> {club.club_color}</div>
             <div className='club_details_text'><span className='club_descrip_bold'>Club Length:</span> {club.club_length}</div>
-            <div className='club_details_price'><span className='club_descrip_bold'>Price:</span> {club.price}</div>
+            <div className='club_details_price price_box'><span className='club_descrip_bold'>Bid Price:</span> {club.price}
+            <button className='inquire_button'>Inquire</button></div>
+            
           </div>
         ))}
       </>

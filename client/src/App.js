@@ -254,7 +254,7 @@ class App extends Component {
       <div>
         <header className="main_header_section">
           
-          <Link to="/"><div className="main_logo">GBay</div>
+          <Link to="/"><div className="main_logo">Gbay Junction</div>
           <h2 className="main_subtitle">Exclusive Dealer of Golf's Most Historic Golf Clubs</h2></Link>
          
 
@@ -265,7 +265,7 @@ class App extends Component {
               <h3 className="welcome_title">Welcome to GBay: <span className="user_label"> {this.state.currentUser && this.state.currentUser.email}</span>
                     <button onClick={this.handleLogout} className='logout_button'>logout</button>
               </h3>
-              <hr/>
+              <hr className="horizontal_line"/>
               <div className='view_all_clubs'>
               <Link to={`users/${this.state.currentUser.id}/clubs`}>View All Clubs</Link>
               </div>

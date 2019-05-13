@@ -19,40 +19,46 @@ header.main_header_section {
   
 }
 
+
 .main_subtitle {
   font-family: 'Arima Madurai', cursive;
   color: white;
   font-weight: 200px;
-  font-size: 24px;
+  font-size: 20px;
   margin: 0 auto;
   text-align: center;
 
 }
 
+hr.horizontal_line {
+  border: rgb(160, 231, 158) 1px solid;
+}
+
 /* unvisited link */
 a:link {
-  text-decoration: underline;
-  color: red;
+  text-decoration: none;
+  color: rgb(243, 123, 10);
 }
 
 /* visited link */
 a:visited {
-  color: green;
+  color: antiquewhite;
 }
 
 /* mouse over link */
 a:hover {
-  color: hotpink;
+  color: rgb(105, 255, 150);
 }
 
 /* selected link */
 a:active {
-  color: blue;
+  color: rgb(82, 236, 120);
 }
 
 .user_label {
   margin: 12px;
 }
+
 .view_all_clubs {
   color: red;
   text-align: center;
@@ -61,13 +67,21 @@ a:active {
 }
 
 .welcome_title {
-  color: red;
+  color: rgb(149, 230, 18);
   text-align: center;
   padding: 8px;
+  font-size: 14px;
+}
+
+button {
+  border-radius: 8px;
+  background-color: rgb(52, 171, 240);
+  border: 1px solid white;
 }
 
 .logout_button {
-  margin: 0px;
+  margin: 0px; 
+
 }
 
 .delete_button {
